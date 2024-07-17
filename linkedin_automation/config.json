@@ -1,0 +1,12 @@
+{
+    "post_ele": "//div[@id='fie-impression-container']",
+    "name_post": ".//div[1]/div[1]/div/div/a/span[1]/span/span[2]",
+    "designation_post": ".//div[1]/div[1]/div/div/a/span[2]/span[1]",
+    "linkedin_post": ".//div[1]/div[1]/div/div/a",
+    "post_text": ".//div[2]/div/div/span/span/span",
+    "post_time": ".//div[1]/div[1]/div/div/span/div/span/span[1]",
+    "search_box":"//input[@class='search-global-typeahead__input']",
+    "post_btn":"//li[@class='search-reusables__primary-filter'][2]/button",
+    "username_input_xpath": "//input[@name='session_key']",
+    "password_input_xpath": "//input[@name='session_password']"
+}
