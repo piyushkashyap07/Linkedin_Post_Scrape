@@ -12,6 +12,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service as ChromeService
 
 # Load environment variables from .env file
 env_path = r'.env'
@@ -21,6 +22,7 @@ load_dotenv(dotenv_path=env_path)
 LINKEDIN_USERNAME = os.getenv("LINKEDIN_USERNAME")
 LINKEDIN_PASSWORD = os.getenv("LINKEDIN_PASSWORD")
 MONGO_URI = os.getenv("MONGO_URI")
+DRIVER_PATH = os.getenv("DRIVER_PATH")
 
 # Import configuration
 config_path = r"config.json"
@@ -64,16 +66,26 @@ def login(driver, username, password):
         password_input.send_keys(password)
 
         password_input.send_keys(Keys.RETURN)
-        time.sleep(random.randint(5, 15))
+        time.sleep(random.randint(180, 300))
     except Exception as e:
         print(f"Error during login: {e}")
 
 # Function to initialize the WebDriver and login
 def initialize_driver_and_login():
     try:
-        # Use ChromeDriverManager to download and manage the driver
-        # driver = webdriver.Chrome(executable_path=r"C:\Piyush\Scripts\jobs\clasiifier-github-repo\chromedriver-win64\chromedriver-win64\chromedriver.exe")
-        driver = webdriver.Chrome(ChromeDriverManager().install())
+        chromedriver_path = DRIVER_PATH
+        
+        # Use ChromeService to specify the chromedriver executable path
+        service = ChromeService(executable_path=chromedriver_path)
+        
+        # Set options to avoid sandbox and specify user data directory
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument("--no-sandbox")  
+        chrome_options.add_argument("--disable-dev-shm-usage")  
+        
+        # Initialize Chrome webdriver with options and service
+        driver = webdriver.Chrome(service=service, options=chrome_options)
+        # driver = webdriver.Chrome(ChromeDriverManager().install())
         return driver
     except Exception as e:
         print(f"Error from initialize_driver_and_login: {e}")

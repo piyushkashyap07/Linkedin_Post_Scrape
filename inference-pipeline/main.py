@@ -4,13 +4,16 @@ from pymongo import MongoClient
 import tensorflow as tf
 import numpy as np
 import pickle
+import os
 from dotenv import load_dotenv
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 app = FastAPI()
 
-# MongoDB connection string
-MONGO_DETAILS = os.getenv("MONGO_URI")
+env_path = r'.env'
+load_dotenv(dotenv_path=env_path)
+# Now access the environment variable
+MONGO_DETAILS = os.getenv("MONGO_DETAILS")
 
 client = MongoClient(MONGO_DETAILS)
 database = client['test']
